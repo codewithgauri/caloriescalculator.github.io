@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+          <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+  
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    
+        <title>Calorie Calculator</title>
+        
+        <style>
+          #loading, #results {
+            display: none;
+          }
+          #loading {
+            width: 100%;
+          }
+        </style>
+      
+      
+      <body class="bg-warning">
+
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>BMI Calculator</title>
+    
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="img/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="img/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#0000FF">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800" rel="stylesheet"> 
+    
+    <!-- custom CSS -->
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+</head>
+<body>
+
+    <!-- background -->
+    
+
+    <!-- app window -->
+    
+    <div id="app" class="animated fadeInUp" v-cloak>
+        <div class="container">
+
+            <!-- title row -->
+            <div id="row-title" class="row">
+                <div class="col">
+                    
+                    <h1>BMI Calculator</h1>
+                    <hr>
+                    
+                    <h4>Easily calculate your Body Mass Index</h4>
+                </div>
+            </div>
+
+            <!-- input row --><img src="./gitlexc.gif" alt="" align="center" width="180" height="180" > 
+            <div id="row-input" class="row">
+                <div class="col">
+                    <form>
+                        
+                        <div class="form-group">
+                            <b-input-group prepend="Weight">
+                                <b-form-input v-if="weightSelected == 'kg'" v-model.number="weight" type="number" min=0 step="any" size="lg"></b-form-input>
+                                <b-form-input v-if="weightSelected == 'lb'" v-model.number="weight_lb" type="number" min=0 step="any" size="lg"></b-form-input>
+                                <b-input-group-append>
+                                    <div>
+                                        <b-form-select v-model="weightSelected" :options="weightOptions" size="lg">
+                                        <div>Selected: <strong>{{ weightSelected }}</strong></div>
+                                    </div>
+                                </b-input-group-append>
+                            </b-input-group>
+                        </div>
+                        <div class="form-group">
+                            <b-input-group prepend="Height">
+                                <b-form-input v-if="heightSelected !== 'us'" v-model.number="height" type="number" min=0 step="any" size="lg"></b-form-input>
+                                <b-form-input v-if="heightSelected == 'us'" v-model.number="height_ft" type="number" min=0 step="any" size="lg"></b-form-input>
+                                <b-form-input v-if="heightSelected == 'us'" v-model.number="height_inch" type="number" min=0 step="any" size="lg"></b-form-input>
+                                <b-input-group-append>
+                                    <div>
+                                        <b-form-select v-model="heightSelected" :options="heightOptions" size="lg">
+                                        <div>Selected: <strong>{{ heightSelected }}</strong></div>
+                                    </div>
+                                </b-input-group-append>
+                            </b-input-group>
+                        </div>
+                    </form>                
+                </div>
+            </div>
+        </div>
+
+        <!-- results row -->
+        <div id="row-result" class="bg-primary">
+            <div class="col">
+                <span class="title">
+                    Your BMI is:
+                </span><br>
+                <span class="group">
+                    {{ weightGroup }}
+                </span>
+            </div>
+            <div class="col bmi">
+                {{ bmi }}
+            </div>
+        </div>
+    </div>
+
+    <!-- javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                weight: 75,
+                weight_lb: 0,
+                weightSelected: 'kg',
+                weightOptions: [
+                    { value: 'kg', text: 'kg' },
+                    { value: 'lb', text: 'lb' }
+                ],
+                height: 180,
+                height_ft: 0,
+                height_inch: 0,
+                heightSelected: 'cm',
+                heightOptions: [
+                    { value: 'cm', text: 'cm' },
+                    { value: 'us', text: 'ft/in' }
+                ]
+            },
+            computed: {
+                bmi() {
+                    return round(calculateBMI(this.weight, this.height), 1);
+                },
+                weightGroup() {
+                    return getWeightGroup(this.bmi);
+                }
+            },
+            watch: {
+                weightSelected(val) {
+                    if (val == 'lb') {
+                        this.weight_lb = round(kgToLb(this.weight), 1);
+                    }
+                },
+                weight_lb(val) {
+                    this.weight = round(lbToKg(this.weight_lb), 1);
+                },
+                heightSelected(val) {
+                    if (val == 'cm') {
+                        this.height = round(imperialToCm(this.height_ft, this.height_inch), 0);
+                    } else if (val == 'us') {
+                        this.updateImperial(this.height);
+                    }
+                },
+                height_ft(val) {
+                    this.height = round(imperialToCm(val, this.height_inch), 0);
+                },
+                height_inch(val) {
+                    this.height = round(imperialToCm(this.height_ft, val), 0);
+                }
+            },
+            methods: {
+                updateImperial(cm) {
+                    this.height_ft = cmToImperial(cm).feet;
+                    this.height_inch = cmToImperial(cm).inches;
+                }
+            }
+        });
+
+        // easy round function
+        function round(value, precision) {
+            return Number(Math.round(value+'e'+precision)+'e-'+precision);
+        }
+        
+        // weight conversion functions
+        function lbToKg(lb) {
+            return lb * 0.45359237;
+        }
+        function kgToLb(kg) {
+            return kg * 2.20462262185;
+        }
+        
+        // length conversion functions
+        function imperialToCm(feet, inches) {
+            var cm = feet * 30.48; // ft to cm
+            cm += inches * 2.54; // inch to cm
+            return cm;
+        }
+        function cmToImperial(cm) {
+            var realFeet = ((cm*0.393700) / 12);
+            var feet = Math.floor(realFeet);
+            var inches = Math.round((realFeet - feet) * 12);
+            return {
+                feet: feet,
+                inches: inches
+            }
+        }
+        
+        // BMI functions
+        function calculateBMI(kg, cm) {
+            var m = cm / 100;
+            if (kg > 0 && m > 0) {
+                return kg / Math.pow(m, 2);
+            } else {
+                return 0;
+            }
+        }
+        function getWeightGroup(bmi) {
+            if (bmi == 0) {
+                return "";
+            } else if (bmi < 15) {
+                return "Very Severely Underweight";
+            } else if (bmi >= 15 && bmi < 16) {
+                return "Severely Underweight";
+            } else if (bmi >= 16 && bmi < 18.5) {
+                return "Underweight";
+            } else if (bmi >= 18.5 && bmi < 25) {
+                return "Healthy Weight";
+            } else if (bmi >= 25 && bmi < 30) {
+                return "Overweight";
+            } else if (bmi >= 30 && bmi < 35) {
+                return "Moderately Obese";
+            } else if (bmi >= 35 && bmi < 40) {
+                return "Severely Obese";
+            } else if (bmi > 40) {
+                return "Very Severely Obese";
+            }
+        }
+    </script>
+
+</body>
+</html>
