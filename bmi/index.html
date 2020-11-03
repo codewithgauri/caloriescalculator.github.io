@@ -98,8 +98,10 @@
                                         <b-form-select v-model="heightSelected" :options="heightOptions" size="lg">
                                         <div>Selected: <strong>{{ heightSelected }}</strong></div>
                                     </div>
+                                    
                                 </b-input-group-append>
                             </b-input-group>
+                            
                         </div>
                     </form>                
                 </div>
@@ -118,9 +120,13 @@
             </div>
             <div class="col bmi">
                 {{ bmi }}
+
             </div>
-        </div>
+        
+                               
+        
     </div>
+
 
     <!-- javascript -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -244,6 +250,7 @@
                 return "Very Severely Obese";
             }
         }
+        
     </script>
 
 </body>
